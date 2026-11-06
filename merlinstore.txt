@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERLIN MARKET | Premium Gaming Accounts & Logs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #05050a;
+            --bg-card: #0e0e1a;
+            --bg-card-hover: #141426;
+            --border: #1e1e38;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.25);
+            --neon-purple: #8b5cf6;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-base); color: var(--text-main); min-height: 100vh; padding-bottom: 60px; }
+
+        /* Container */
+        .wrapper { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header {
+            background: rgba(5, 5, 10, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 26px;
+            color: var(--accent);
+            cursor: pointer;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: 1px;
+        }
+        .logo span { color: #fff; }
+        .header-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-badge::before {
+            content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* Channels Bar */
+        .channels-bar {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0;
+        }
+        .channel-btn {
+            padding: 14px 20px; border-radius: 14px; font-size: 12px; font-weight: 800;
+            text-decoration: none; text-align: center; display: flex; align-items: center;
+            justify-content: center; gap: 8px; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .channel-btn:hover { transform: translateY(-2px); }
+        .channel-btn.wa { background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); color: #25D366; }
+        .channel-btn.tg { background: rgba(34, 158, 217, 0.1); border: 1px solid rgba(34, 158, 217, 0.3); color: #229ED9; }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0e0e1a 0%, #15152d 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 38px; font-weight: 900; line-height: 1.1; margin-bottom: 10px; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { color: var(--text-muted); font-size: 14px; font-weight: 600; margin-bottom: 24px; }
+
+        /* Tabs & Categories */
+        .tabs-container { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+        .tab-btn {
+            background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted);
+            padding: 12px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active { background: rgba(16, 185, 129, 0.15); border-color: var(--accent); color: var(--accent); }
+
+        /* Vendor Application Banner */
+        .vendor-banner {
+            background: linear-gradient(135deg, #120d26 0%, #1e133f 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .vendor-info h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; color: #c4b5fd; margin-bottom: 6px; }
+        .vendor-info p { font-size: 12px; color: var(--text-muted); }
+        .vendor-actions { display: flex; gap: 10px; }
+        .v-btn {
+            padding: 12px 18px; border-radius: 10px; font-size: 11px; font-weight: 800;
+            text-decoration: none; display: flex; align-items: center; gap: 6px; transition: transform 0.2s;
+        }
+        .v-btn:hover { transform: translateY(-2px); }
+        .v-btn.wa { background: #25D366; color: #000; }
+        .v-btn.tg { background: #229ED9; color: #fff; }
+
+        /* Product Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+            overflow: hidden; transition: transform 0.2s, border-color 0.2s; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-4px); border-color: rgba(16, 185, 129, 0.4); }
+        .imgbox { height: 160px; position: relative; background: #000; }
+        .imgbox img { width: 100%; height: 100%; object-fit: cover; }
+        .tag {
+            position: absolute; top: 12px; left: 12px; background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px); padding: 5px 10px; border-radius: 8px; font-size: 10px;
+            font-weight: 800; border: 1px solid var(--border); color: #fff;
+        }
+        .stock-badge {
+            position: absolute; top: 12px; right: 12px; background: var(--accent); color: #000;
+            padding: 5px 10px; border-radius: 8px; font-size: 9px; font-weight: 900;
+        }
+        .card-body { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .title { font-size: 13px; font-weight: 800; margin-bottom: 6px; color: #fff; }
+        .meta { font-size: 10px; color: var(--text-muted); margin-bottom: 12px; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 12px; }
+        .price { color: var(--accent); font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 800; }
+        .buy-btn {
+            background: var(--accent); color: #000; border: 0; padding: 10px 16px;
+            border-radius: 10px; font-weight: 900; font-size: 11px; cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .buy-btn:hover { opacity: 0.9; }
+
+        /* Modal */
+        #modal {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+        }
+        .modal-box {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px;
+            padding: 28px; width: 100%; max-width: 380px; text-align: center;
+        }
+        .modal-box h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .modal-price { font-family: 'Orbitron', sans-serif; color: var(--accent); font-size: 24px; font-weight: 900; margin: 15px 0; }
+        .modal-meta { font-size: 11px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
+        .m-btn {
+            width: 100%; padding: 14px; border-radius: 12px; border: 0; font-weight: 800;
+            margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;
+            text-decoration: none; font-size: 13px; cursor: pointer;
+        }
+        .m-btn.wa { background: #25D366; color: #fff; }
+        .m-btn.tg { background: #229ED9; color: #fff; }
+        .m-btn.cancel { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+
+        /* Admin Panel */
+        #adminPanel { display: none !important; position: fixed; inset: 0; background: var(--bg-base); z-index: 99999; overflow-y: auto; padding: 20px; }
+        .admin-wrap { max-width: 800px; margin: 0 auto; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+        .admin-header h2 { font-family: 'Orbitron', sans-serif; color: var(--accent); }
+        .admin-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; margin-bottom: 20px; }
+        .admin-section h3 { font-family: 'Orbitron', sans-serif; font-size: 13px; color: var(--accent); margin-bottom: 14px; }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-size: 10px; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; }
+        .input { width: 100%; background: #070710; border: 1px solid var(--border); padding: 12px; border-radius: 10px; color: #fff; font-size: 12px; }
+        .input:focus { border-color: var(--accent); outline: none; }
+        textarea.input { height: 60px; resize: vertical; }
+        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .preview-img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border); }
+        .btn-action { width: 100%; padding: 14px; border-radius: 12px; font-weight: 900; border: 0; cursor: pointer; font-size: 12px; margin-top: 10px; }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-secondary { background: #1e1e38; color: #fff; border: 1px solid var(--border); }
+        .btn-danger { background: #ef4444; color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- Header -->
+    <header>
+        <div class="nav-content">
+            <div class="logo" id="siteLogo">MERLIN <span>STORE</span></div>
+            <div class="header-badge">VERIFIED & SECURE</div>
+        </div>
+    </header>
+
+    <!-- Channels -->
+    <div class="channels-bar">
+        <a class="channel-btn wa" id="waChannelBtn" href="https://whatsapp.com/channel/0029VbDDlueIt5s069kMEs0e" target="_blank">
+            WhatsApp Channel
+        </a>
+        <a class="channel-btn tg" id="tgChannelBtn" href="https://t.me/merlinroom" target="_blank">
+            Telegram Channel
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 id="heroTitle">PRO GAMING ACCOUNTS <span>& LOGS</span></h1>
+        <p id="heroSub">Instant Delivery • Verified Credentials • 100% Trusted Marketplace</p>
+        
+        <!-- Category Tabs -->
+        <div class="tabs-container" id="tabsContainer">
+            <div class="tab-btn active" onclick="switchTab('all')">🔥 All Items</div>
+            <div class="tab-btn" onclick="switchTab('cpm')">🚗 Car Parking</div>
+            <div class="tab-btn" onclick="switchTab('ff')">⚡ Free Fire</div>
+            <div class="tab-btn" onclick="switchTab('logs')">📂 Gaming Logs</div>
+        </div>
+    </div>
+
+    <!-- Vendor Application Banner -->
+    <div class="vendor-banner">
+        <div class="vendor-info">
+            <h3 id="vendorTitle">🚀 WANT TO BECOME A VENDOR?</h3>
+            <p id="vendorDesc">Sell your gaming accounts & logs with us. Fast payouts & high demand!</p>
+        </div>
+        <div class="vendor-actions">
+            <a id="vendorWa" class="v-btn wa" href="https://wa.me/2348102684934?text=Hello%20Merlin,%20I%20want%20to%20apply%20as%20a%20vendor" target="_blank">WhatsApp Apply</a>
+            <a id="vendorTg" class="v-btn tg" href="https://t.me/merlin162010?text=Hello%20Merlin,%20I%20want%20to%20apply%20as%20a%20vendor" target="_blank">Telegram Apply</a>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="grid" id="grid"></div>
+</div>
+
+<!-- Buy Modal -->
+<div id="modal" onclick="if(event.target.id==='modal')closeModal()">
+    <div class="modal-box">
+        <h3 id="mTitle"></h3>
+        <div id="mPrice" class="modal-price"></div>
+        <div id="mMeta" class="modal-meta"></div>
+        <a id="waBuyLink" class="m-btn wa" target="_blank">Buy via WhatsApp DM</a>
+        <a id="tgBuyLink" class="m-btn tg" target="_blank">Buy via Telegram DM</a>
+        <button class="m-btn cancel" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<!-- Admin Panel -->
+<div id="adminPanel">
+    <div class="admin-wrap">
+        <div id="loginBox" class="admin-section" style="max-width: 380px; margin: 80px auto; text-align: center;">
+            <h2 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:20px;">ADMIN ACCESS</h2>
+            <div class="input-group">
+                <input id="admU" class="input" placeholder="Username">
+            </div>
+            <div class="input-group">
+                <input id="admP" class="input" type="password" placeholder="Password">
+            </div>
+            <button class="btn-action btn-primary" onclick="doLogin()">LOGIN</button>
+            <p id="err" style="color:#ef4444; font-size:11px; margin-top:10px; display:none;">Incorrect credentials</p>
+        </div>
+
+        <div id="adminContent" style="display:none;">
+            <div class="admin-header">
+                <h2>MERLIN DASHBOARD</h2>
+                <button class="btn-secondary" style="width: auto; padding: 8px 16px; margin:0;" onclick="closeAdmin()">Close Panel</button>
+            </div>
+
+            <!-- Site Config -->
+            <div class="admin-section">
+                <h3>SITE SETTINGS & LINKS</h3>
+                <div class="admin-grid">
+                    <div class="input-group"><label>Logo Text</label><input id="set_logo" class="input"></div>
+                    <div class="input-group"><label>WhatsApp Number</label><input id="set_waNum" class="input"></div>
+                    <div class="input-group"><label>Telegram Username</label><input id="set_tgUser" class="input"></div>
+                    <div class="input-group"><label>WhatsApp Channel URL</label><input id="set_waChan" class="input"></div>
+                    <div class="input-group"><label>Telegram Channel URL</label><input id="set_tgChan" class="input"></div>
+                </div>
+            </div>
+
+            <!-- Product Management -->
+            <div class="admin-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                    <h3>MANAGE INVENTORY</h3>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-primary" style="width:auto; padding:8px 12px; margin:0; font-size:10px;" onclick="addNew('cpm')">+ CPM</button>
+                        <button class="btn-primary" style="width:auto; padding:8px 12px; margin:0; font-size:10px;" onclick="addNew('ff')">+ FF</button>
+                        <button class="btn-primary" style="width:auto; padding:8px 12px; margin:0; font-size:10px;" onclick="addNew('logs')">+ Logs</button>
+                    </div>
+                </div>
+                <div id="adminProductList"></div>
+            </div>
+
+            <!-- Code Generator -->
+            <div class="admin-section">
+                <h3>DEPLOYMENT CODE GENERATOR</h3>
+                <button class="btn-secondary" onclick="saveAllSettings()">1. Save Configuration</button>
+                <button class="btn-action btn-primary" style="margin-top:10px;" onclick="generateCode()">2. Generate & Copy Code for GitHub</button>
+                <textarea id="codeOut" class="input" style="margin-top:12px; height:180px; font-family:monospace; font-size:10px; color:#10b981; display:none;"></textarea>
+                <button id="copyBtn" class="btn-action" style="background:#25D366; color:#fff; display:none; margin-top:10px;" onclick="copyCode()">Copy Code to Clipboard</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Site Configuration & Default Inventory
+    let SITE_CONFIG = {
+        logo: "MERLIN <span>STORE</span>",
+        waNum: "2348102684934",
+        tgUser: "merlin162010",
+        waChan: "https://whatsapp.com/channel/0029VbDDlueIt5s069kMEs0e",
+        tgChan: "https://t.me/merlinroom"
+    };
+
+    let PRODUCTS = [
+        { t: "cpm", title: "Legend CPM Account #109", meta: "Level 109 • 50M Money • Full Garage", price: 5000, stock: 4, img: "https://i.postimg.cc/8CvJFv0d/8056f5fe-6218-9eb7-28d1-37d9034b838c.jpg", badge: "CPM" },
+        { t: "ff", title: "Free Fire Elite Pass Account", meta: "Level 65 • Rare Emotes • Top Criminal", price: 4000, stock: 2, img: "https://i.postimg.cc/d0mYhtwN/8442724f-bc25-75b5-159e-72a47286909d.jpg", badge: "FREE FIRE" },
+        { t: "logs", title: "Verified US Gaming Logs bundle", meta: "High Quality • Instant Access • Checked", price: 2500, stock: 15, img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600", badge: "LOGS" }
+    ];
+
+    let currentTab = 'all';
+    let tapCount = 0;
+
+    function init() {
+        document.getElementById('siteLogo').innerHTML = SITE_CONFIG.logo;
+        document.getElementById('waChannelBtn').href = SITE_CONFIG.waChan;
+        document.getElementById('tgChannelBtn').href = SITE_CONFIG.tgChan;
+        document.getElementById('vendorWa').href = `https://wa.me/${SITE_CONFIG.waNum}?text=${encodeURIComponent("Hello Merlin, I want to apply as a vendor")}`;
+        document.getElementById('vendorTg').href = `https://t.me/${SITE_CONFIG.tgUser}?text=${encodeURIComponent("Hello Merlin, I want to apply as a vendor")}`;
+        renderProducts();
+    }
+
+    function switchTab(tab) {
+        currentTab = tab;
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        renderProducts();
+    }
+
+    function renderProducts() {
+        let filtered = currentTab === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.t === currentTab);
+        let grid = document.getElementById('grid');
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-muted);">No items available in this category right now. Check back soon!</div>`;
+            return;
+        }
+
+        grid.innerHTML = filtered.map((p, index) => {
+            let originalIndex = PRODUCTS.indexOf(p);
+            return `
+                <div class="card">
+                    <div class="imgbox">
+                        <img src="${p.img}" onerror="this.src='https://via.placeholder.com/400'">
+                        <div class="tag">${p.badge}</div>
+                        <div class="stock-badge">📦 ${p.stock} Left</div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="title">${p.title}</div>
+                            <div class="meta">${p.meta}</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="price">₦${p.price.toLocaleString()}</div>
+                            <button class="buy-btn" onclick="openBuyModal(${originalIndex})">BUY NOW</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function openBuyModal(i) {
+        let p = PRODUCTS[i];
+        document.getElementById('mTitle').innerText = p.title;
+        document.getElementById('mPrice').innerText = "₦" + p.price.toLocaleString();
+        document.getElementById('mMeta').innerText = `${p.meta}\nStock Available: ${p.stock} pcs`;
+        
+        let msg = encodeURIComponent(`Hello Merlin, I want to buy:\n🔹 ${p.title}\n💰 Price: ₦${p.price.toLocaleString()}\n📦 Stock: ${p.stock} pcs`);
+        document.getElementById('waBuyLink').href = `https://wa.me/${SITE_CONFIG.waNum}?text=${msg}`;
+        document.getElementById('tgBuyLink').href = `https://t.me/${SITE_CONFIG.tgUser}?text=${msg}`;
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+
+    // Admin Panel Logic
+    document.getElementById('siteLogo').addEventListener('click', () => {
+        tapCount++;
+        if (tapCount >= 7) { openAdmin(); tapCount = 0; }
+        setTimeout(() => { tapCount = 0; }, 3000);
+    });
+
+    window.addEventListener('hashchange', () => {
+        if (location.hash === "#merlinadmin") openAdmin();
+    });
+
+    function openAdmin() {
+        document.getElementById('adminPanel').style.setProperty('display', 'block', 'important');
+        document.getElementById('loginBox').style.display = 'block';
+        document.getElementById('adminContent').style.display = 'none';
+        
+        document.getElementById('set_logo').value = SITE_CONFIG.logo;
+        document.getElementById('set_waNum').value = SITE_CONFIG.waNum;
+        document.getElementById('set_tgUser').value = SITE_CONFIG.tgUser;
+        document.getElementById('set_waChan').value = SITE_CONFIG.waChan;
+        document.getElementById('set_tgChan').value = SITE_CONFIG.tgChan;
+        loadAdminProducts();
+    }
+
+    function closeAdmin() {
+        document.getElementById('adminPanel').style.setProperty('display', 'none', 'important');
+        history.replaceState(null, '', location.pathname);
+    }
+
+    function doLogin() {
+        let u = document.getElementById('admU').value;
+        let p = document.getElementById('admP').value;
+        if (u === "Merlin" && p === "merlin1") {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+        } else {
+            document.getElementById('err').style.display = 'block';
+        }
+    }
+
+    function loadAdminProducts() {
+        let html = "";
+        PRODUCTS.forEach((p, i) => {
+            html += `
+                <div class="admin-section" style="margin-bottom: 12px; background: #070710;">
+                    <img src="${p.img}" class="preview-img" id="prev_${i}">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 8px;">
+                        <b style="font-size:12px; color:var(--accent);">#${i+1} [${p.t.toUpperCase()}]</b>
+                        <button class="btn-danger" style="width:auto; padding:4px 10px; font-size:10px;" onclick="delProd(${i})">Delete</button>
+                    </div>
+                    <div class="admin-grid">
+                        <div class="input-group"><label>Category</label>
+                            <select class="input" id="t_${i}">
+                                <option value="cpm" ${p.t==='cpm'?'selected':''}>CPM</option>
+                                <option value="ff" ${p.t==='ff'?'selected':''}>Free Fire</option>
+                                <option value="logs" ${p.t==='logs'?'selected':''}>Logs</option>
+                            </select>
+                        </div>
+                        <div class="input-group"><label>Badge Title</label><input class="input" id="ba_${i}" value="${p.badge}"></div>
+                        <div class="input-group" style="grid-column: span 2;"><label>Title</label><input class="input" id="ti_${i}" value="${p.title}"></div>
+                        <div class="input-group" style="grid-column: span 2;"><label>Description Meta</label><input class="input" id="me_${i}" value="${p.meta}"></div>
+                        <div class="input-group"><label>Price (₦)</label><input class="input" type="number" id="pr_${i}" value="${p.price}"></div>
+                        <div class="input-group"><label>Stock Qty</label><input class="input" type="number" id="st_${i}" value="${p.stock}"></div>
+                        <div class="input-group" style="grid-column: span 2;"><label>Image URL</label><input class="input" id="im_${i}" value="${p.img}" oninput="document.getElementById('prev_${i}').src=this.value"></div>
+                    </div>
+                </div>
+            `;
+        });
+        document.getElementById('adminProductList').innerHTML = html;
+    }
+
+    function addNew(type) {
+        PRODUCTS.unshift({
+            t: type,
+            title: type === 'logs' ? "New Gaming Logs Bundle" : "New Account Stock",
+            meta: "Level 1 • Verified & Clean",
+            price: 3000,
+            stock: 5,
+            img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600",
+            badge: type.toUpperCase()
+        });
+        loadAdminProducts();
+        renderProducts();
+    }
+
+    function delProd(i) {
+        if (confirm("Are you sure you want to delete this product?")) {
+            PRODUCTS.splice(i, 1);
+            loadAdminProducts();
+            renderProducts();
+        }
+    }
+
+    function saveAllSettings() {
+        SITE_CONFIG = {
+            logo: document.getElementById('set_logo').value,
+            waNum: document.getElementById('set_waNum').value,
+            tgUser: document.getElementById('set_tgUser').value,
+            waChan: document.getElementById('set_waChan').value,
+            tgChan: document.getElementById('set_tgChan').value
+        };
+
+        let updatedProducts = [];
+        PRODUCTS.forEach((p, i) => {
+            let tEl = document.getElementById('t_' + i);
+            if (!tEl) return;
+            updatedProducts.push({
+                t: tEl.value,
+                title: document.getElementById('ti_' + i).value,
+                meta: document.getElementById('me_' + i).value,
+                price: parseInt(document.getElementById('pr_' + i).value) || 0,
+                stock: parseInt(document.getElementById('st_' + i).value) || 1,
+                img: document.getElementById('im_' + i).value,
+                badge: document.getElementById('ba_' + i).value
+            });
+        });
+        PRODUCTS = updatedProducts;
+        init();
+        alert("Settings & Inventory Saved Successfully!");
+    }
+
+    function generateCode() {
+        saveAllSettings();
+        let configScript = `let SITE_CONFIG = ${JSON.stringify(SITE_CONFIG)};\nlet PRODUCTS = ${JSON.stringify(PRODUCTS)};`;
+        
+        let ap = document.getElementById('adminPanel');
+        ap.style.setProperty('display', 'none', 'important');
+        
+        let fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+        fullHtml = fullHtml.replace(/let SITE_CONFIG = \{[\s\S]*?\};\s*let PRODUCTS = \[[\s\S]*?\];/, configScript);
+        fullHtml = fullHtml.replace(/<div id="adminPanel"[^>]*>/, '<div id="adminPanel" style="display:none !important">');
+        
+        document.getElementById('codeOut').style.display = 'block';
+        document.getElementById('codeOut').value = fullHtml;
+        document.getElementById('copyBtn').style.display = 'block';
+        ap.style.setProperty('display', 'block', 'important');
+    }
+
+    function copyCode() {
+        let box = document.getElementById('codeOut');
+        box.select();
+        navigator.clipboard.writeText(box.value).then(() => {
+            alert("Code copied to clipboard! Paste it directly into your GitHub index.html file.");
+        });
+    }
+
+    (function() {
+        if (location.hash !== "#merlinadmin") {
+            document.getElementById('adminPanel').style.setProperty('display', 'none', 'important');
+        }
+    })();
+
+    init();
+</script>
+
+</body>
+</html>
